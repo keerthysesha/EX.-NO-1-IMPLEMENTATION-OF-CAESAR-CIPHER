@@ -16,8 +16,68 @@ STEP-4: Else subtract the key from the plain text.
 STEP-5: Display the cipher text obtained above.
 
 ## PROGRAM:
+```
+#include <stdio.h>
+#include <string.h>
+
+char* encrypt(char text[], int s) {
+    static char result[100];
+    int i;
+    
+    for (i = 0; i < strlen(text); i++) {
+        char char_ = text[i];
+        
+        if (char_ >= 'A' && char_ <= 'Z') {
+            result[i] = (char)(((int)char_ + s - 65) % 26 + 65);
+        } else if (char_ >= 'a' && char_ <= 'z') {
+            result[i] = (char)(((int)char_ + s - 97) % 26 + 97);
+        } else {
+            result[i] = char_;
+        }
+    }
+    result[i] = '\0';
+    return result;
+}
+
+char* decrypt(char text[], int s) {
+    static char result[100];
+    int i;
+    
+    for (i = 0; i < strlen(text); i++) {
+        char char_ = text[i];
+        
+        if (char_ >= 'A' && char_ <= 'Z') {
+            result[i] = (char)(((int)char_ - s - 65 + 26) % 26 + 65);
+        } else if (char_ >= 'a' && char_ <= 'z') {
+            result[i] = (char)(((int)char_ - s - 97 + 26) % 26 + 97);
+        } else {
+            result[i] = char_;
+        }
+    }
+    result[i] = '\0';
+    return result;
+}
+
+int main() {
+    char text[100];
+    int s;
+    scanf("%s",text);
+    scanf("%d",&s);
+    printf("Text: %s\n", text);
+    printf("Shift: %d\n", s);
+    printf("Cipher: %s\n", encrypt(text, s));
+    printf("Decrypted: %s\n", decrypt(encrypt(text, s), s));
+    
+    return 0;
+}
+```
 
 ## OUTPUT:
+
+
+![Screenshot 2024-09-23 112046](https://github.com/user-attachments/assets/cbfc717f-f894-4c83-85c3-f44dd79d0e96)
+
+
 
 ## RESULT :
  Thus the implementation of ceasar cipher had been executed successfully.
